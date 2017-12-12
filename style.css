@@ -1,0 +1,15 @@
+* {
+	margin: 0 auto;
+}
+
+main {
+	background-color: grey;
+	width: 500px;
+	margin-top: 20px;
+	padding: 20px 0;
+}
+
+input, select, button {
+	display : block;
+}
+
