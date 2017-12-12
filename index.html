@@ -8,7 +8,7 @@
 	<input type="text" id="op1">
 	<input type="text" id="op2">
 	<select id="select">
-		<option value="+" selected>+</option>
+		<option value="+">+</option>
 		<option value="-">-</option>
 		<option value="*">*</option>
 		<option value="/">/</option>
@@ -18,7 +18,48 @@
 	<button id="calcul">calcul</button>
 
 	<script type="text/javascript">
-		
+
+		function calcul(op1, op2, operator) {
+			var result;
+			if(operator=='+'){
+				result=op1+op2;
+			}else if (operator=='-') {
+				result=op1-op2;
+			}else if (operator=='/') {
+				result=op1/op2;
+			}else {
+				result=op1*op2;
+			}
+			return result;
+		}
+
+		function display(texte){
+			var result=document.getElementById('result');
+			result.textContent=texte;
+		}
+
+		function error(op1, op2, operator){
+			var erreur=document.getElementById('erreur');
+			if(isNaN(op1)||isNaN(op2)){
+				erreur.textContent="Au moins l'une des deux operandes n'est pas un nombre";
+			}
+			if(operator== "/" && op2==0){
+				erreur.textContent="division par 0 est impossible";
+			}
+		}
+
+		function main(){
+			var op1=parseFloat(document.getElementById('op1').value);
+			var op2=parseFloat(document.getElementById('op2').value);
+			var select=document.getElementById('select');
+			var operator=select.options[select.selectedIndex].value;
+
+			display(calcul(op1,op2,operator));
+			error(op1, op2, operator);
+
+		}
+		document.getElementById('calcul').addEventListener('click', main);
+
 	</script>
 </body>
 </html>
