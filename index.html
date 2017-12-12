@@ -7,32 +7,69 @@
 </head>
 <body>
 	<main>
-	<input type="text" id="op1" placeholder="Tape un nombre">
-	<input type="text" id="op2" placeholder="Tape un nombre">
-	<select id="select">
-		<option value="+">+</option>
-		<option value="-">-</option>
-		<option value="*">*</option>
-		<option value="/">/</option>
-	</select>
+	<!-- <input type="text" id="op1" placeholder="Tape un nombre">
+	<input type="text" id="op2" placeholder="Tape un nombre"> -->
+	<div class="touche">9</div>
+	<div class="touche">8</div>
+	<div class="touche">7</div>
+	<div class="touche">/</div>
+	<div class="touche">6</div>
+	<div class="touche">5</div>
+	<div class="touche">4</div>
+	<div class="touche">*</div>
+	<div class="touche">3</div>
+	<div class="touche">2</div>
+	<div class="touche">1</div>
+	<div class="touche">-</div>
+	<div class="touche zero">0</div>
+	<div id="cancel">C</div>
+	<div class="touche plus">+</div>
+	</main>
+
+	<section>
 	<div id="result"></div>
 	<div id="erreur"></div>
 	<button id="calcul">calcul</button>
-	</main>
+	</section>
 
 	<script type="text/javascript">
-
-		function calcul(op1, op2, operator) {
+		var op1="";
+		var op2="";
+		var operator="";
+		var touche=document.getElementsByClassName("touche");
+		for (var i = 0; i < touche.length; i++) {
+			touche[i].addEventListener('click',function(e){
+				var result=document.getElementById("result");
+				var contenu=e.target.textContent;
+				if(operator==''&&(contenu!='+'&&contenu!='-'&&contenu!='*'&&contenu!='/')){
+					op1=op1+contenu;
+					display(op1);
+				}
+				if(operator==''&&(contenu=='+'||contenu=='-'||contenu=='*'||contenu=='/')){
+					operator=contenu;
+					display(operator);
+				}
+				if(operator!=""&&(contenu!='+'&&contenu!='-'&&contenu!='*'&&contenu!='/')){
+					op2=op2+contenu;
+					display(op2);
+				}
+				console.log("op1="+op1+"op2="+op2+"operator="+operator);
+			})
+		}
+		function calcul(ope1, ope2, opeerator) {
 			var result;
-			if(operator=='+'){
-				result=op1+op2;
-			}else if (operator=='-') {
-				result=op1-op2;
-			}else if (operator=='/') {
-				result=op1/op2;
+			if(opeerator=='+'){
+				result=ope1+ope2;
+			}else if (opeerator=='-') {
+				result=ope1-ope2;
+			}else if (opeerator=='/') {
+				result=ope1/ope2;
 			}else {
-				result=op1*op2;
+				result=ope1*ope2;
 			}
+			op1=result;
+			op2="";
+			operator="";
 			return result;
 		}
 
@@ -52,17 +89,17 @@
 		}
 
 		function main(){
-			var op1=parseFloat(document.getElementById('op1').value);
-			var op2=parseFloat(document.getElementById('op2').value);
-			var select=document.getElementById('select');
-			var operator=select.options[select.selectedIndex].value;
-
-			display(calcul(op1,op2,operator));
-			error(op1, op2, operator);
+			display(calcul(parseFloat(op1),parseFloat(op2),operator));
+			//error(parseFloat(op1), parseFloat(op2), operator);
 
 		}
 		document.getElementById('calcul').addEventListener('click', main);
-
+		document.getElementById("cancel").addEventListener('click',function () {
+			op1="";
+			op2="";
+			operator="";
+			display(op1);
+		})
 	</script>
 </body>
 </html>

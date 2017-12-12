@@ -3,13 +3,56 @@
 }
 
 main {
-	background-color: grey;
-	width: 500px;
+	background-color: red;
+	width: 225px;
 	margin-top: 20px;
 	padding: 20px 0;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+section {
+	background-color: blue;
+	width: 225px;
 }
 
 input, select, button {
 	display : block;
 }
+#cancel{
+	width: 50px;
+	height: 50px;
+	border: 1px solid;
+	background-color: grey;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 5px;		
+}
+.touche {
+	width: 50px;
+	height: 50px;
+	border: 1px solid;
+	background-color: grey;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 5px;	
+}
 
+#result {
+	height: 50px;
+	content: "";
+	border: 1px solid black;
+	display: flex;
+	flex-wrap: wrap;
+	width: 225px;
+}
+
+.zero {
+	margin-left: 58px;
+}
+
+.plus {
+
+}
