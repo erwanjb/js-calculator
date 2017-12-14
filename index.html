@@ -33,26 +33,51 @@
 	</section>
 
 	<script type="text/javascript">
-		var op1="";
-		var op2="";
-		var operator="";
+		var op1=null;
+		var op2=null;
+		var operator=null;
 		var touche=document.getElementsByClassName("touche");
 		for (var i = 0; i < touche.length; i++) {
 			touche[i].addEventListener('click',function(e){
-				var result=document.getElementById("result");
 				var contenu=e.target.textContent;
-				if(operator==''&&(contenu!='+'&&contenu!='-'&&contenu!='*'&&contenu!='/')){
-					op1=op1+contenu;
+				
+				var accepteNombre = (op1 == null) || (op1 != null && operator == null) || (operator != null);
+				var accepteOperateur = (op1 != null && operator == null);
+
+				var aTapeUnNombre = contenu!='+'&&contenu!='-'&&contenu!='*'&&contenu!='/';
+				var aTapeUnOperateur = !aTapeUnNombre;
+
+				if(aTapeUnNombre && accepteNombre)
+				{
+					if(operator == null) {
+						op1 = op1 ? op1 + contenu : op1;
+						display(op1);
+					}
+					else {
+						op2 = op2 ? op2 + contenu : op2;
+						display(op2); 
+					}
+				}
+				if(aTapeUnOperateur && accepteOperateur) 
+				{
+					operator = contenu;
+					display(operator);
+				}
+
+				
+				/*if(operator==null&&(aTapeUnNombre)){
+					op1=op1 ? op1+contenu : contenu;
 					display(op1);
 				}
-				if(operator==''&&(contenu=='+'||contenu=='-'||contenu=='*'||contenu=='/')){
+				if(contenu=='+'||contenu=='-'||contenu=='*'||contenu=='/'){
 					operator=contenu;
 					display(operator);
 				}
-				if(operator!=""&&(contenu!='+'&&contenu!='-'&&contenu!='*'&&contenu!='/')){
-					op2=op2+contenu;
+				if(operator!=null&&(contenu!='+'&&contenu!='-'&&contenu!='*'&&contenu!='/')){
+					op2=op2 ? op2+contenu : op2;
 					display(op2);
-				}
+				}*/
+				
 				console.log("op1="+op1+"op2="+op2+"operator="+operator);
 			})
 		}
@@ -67,9 +92,7 @@
 			}else {
 				result=ope1*ope2;
 			}
-			op1=result;
-			op2="";
-			operator="";
+			
 			return result;
 		}
 
@@ -89,15 +112,20 @@
 		}
 
 		function main(){
-			display(calcul(parseFloat(op1),parseFloat(op2),operator));
-			//error(parseFloat(op1), parseFloat(op2), operator);
+			error(parseFloat(op1), parseFloat(op2), operator);
+			var result = calcul(parseFloat(op1),parseFloat(op2),operator);
+			op1=result;
+			op2=null;
+			operator=null;
+
+			display(result);
 
 		}
 		document.getElementById('calcul').addEventListener('click', main);
 		document.getElementById("cancel").addEventListener('click',function () {
-			op1="";
-			op2="";
-			operator="";
+			op1=null;
+			op2=null;
+			operator=null;
 			display(op1);
 		})
 	</script>
